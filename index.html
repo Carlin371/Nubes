@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌿 Protejamos el Medio Ambiente - Barrio Venecia</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #e0f7fa, #f1f8e9);
+      color: #2e7d32;
+    }
+    header {
+      background: linear-gradient(135deg, #388e3c, #66bb6a);
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+      border-bottom: 8px solid #2e7d32;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+      animation: brillar 2s infinite alternate;
+    }
+    @keyframes brillar {
+      from { text-shadow: 0 0 5px #a5d6a7; }
+      to { text-shadow: 0 0 20px #ffffff; }
+    }
+    section {
+      padding: 40px 30px;
+      margin: 30px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      border: 4px dashed #81c784;
+      animation: aparecer 1s ease-in;
+    }
+    @keyframes aparecer {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    section h2 {
+      color: #1b5e20;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+      text-decoration: underline wavy #66bb6a;
+    }
+    section p, ul {
+      font-size: 1.2rem;
+      color: #444;
+    }
+    iframe {
+      width: 100%;
+      max-width: 720px;
+      height: 420px;
+      display: block;
+      margin: 20px auto;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+    .boton-juego {
+      display: block;
+      background: linear-gradient(90deg, #ffeb3b, #ffc107);
+      color: #2e7d32;
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 12px;
+      margin: 25px auto;
+      width: fit-content;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .boton-juego:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin: 10px 0;
+      font-size: 1.2rem;
+      background: #e8f5e9;
+      padding: 10px 15px;
+      border-left: 5px solid #66bb6a;
+      border-radius: 8px;
+    }
+    footer {
+      background: linear-gradient(to right, #43a047, #81c784);
+      color: white;
+      text-align: center;
+      padding: 25px;
+      font-size: 1.1rem;
+      margin-top: 40px;
+      border-top: 8px solid #388e3c;
+      border-radius: 15px 15px 0 0;
+    }
+    .emoji-flotante {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 2rem;
+      animation: flotar 3s ease-in-out infinite;
+    }
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .box {
+      background-color: #f1f8e9;
+      border: 2px solid #aed581;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .box h2 {
+      color: #2e7d32;
+    }
+    .cuadro {
+      background: linear-gradient(to bottom right, #ffffff, #e8f5e9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .cuadro img {
+      border: 3px solid #81c784;
+      border-radius: 12px;
+      max-width: 100%;
+      height: auto;
+    }
+    /* Preguntas y arrastrar */
+    .pregunta p {
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #1b5e20;
+    }
+    .pregunta button {
+      background-color: #81c784;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      margin: 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .pregunta button:hover {
+      background-color: #4caf50;
+    }
+    .contenedor-reciclaje {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+    #contenedorVidrio, #contenedorPapel, #contenedorOrganico {
+      width: 160px;
+      height: 160px;
+      border: 3px solid #66bb6a;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      background: #e8f5e9;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(102,187,106,0.5);
+      transition: background-color 0.3s ease;
+    }
+    #contenedorVidrio:hover, #contenedorPapel:hover, #contenedorOrganico:hover {
+      background-color: #c8e6c9;
+    }
+    .item-arrastrable {
+      background-color: #a5d6a7;
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-weight: bold;
+      margin: 10px;
+      cursor: grab;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(102,187,106,0.5);
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .item-arrastrable:active {
+      cursor: grabbing;
+      background-color: #81c784;
+      color: white;
+    }
+    #resultadoQuiz, #resultadoMiniQuiz, #resultadoArrastrar {
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-top: 15px;
+      text-align: center;
+    }
+	.video-educativo {
+  animation: fadeInBounce 1.8s ease forwards;
+  padding: 40px 20px 60px;
+  background: linear-gradient(135deg, #d0f0c0, #a0d468);
+  border-radius: 25px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 8px 30px rgba(46, 125, 50, 0.4);
+  border: 5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  overflow: visible;
+  text-align: center;
+}
+
+.video-educativo h2 {
+  font-size: 3rem;
+  color: #1b5e20;
+  margin-bottom: 20px;
+  animation: glowPulse 2.5s ease-in-out infinite;
+  text-shadow: 0 0 8px #4caf50, 0 0 20px #81c784;
+}
+
+.video-educativo iframe {
+  max-width: 720px;
+  width: 100%;
+  height: 420px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px #81c784aa;
+  border: 5px solid;
+  border-image-slice: 1;
+  border-width: 5px;
+  border-image-source: linear-gradient(45deg, #a5d6a7, #66bb6a, #81c784, #4caf50);
+  animation: borderGlow 4s linear infinite;
+  transition: box-shadow 0.3s ease;
+}
+
+.video-educativo iframe:hover {
+  box-shadow: 0 0 40px 5px #4caf50cc;
+  transform: scale(1.03);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Animaciones */
+@keyframes fadeInBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 8px #4caf50, 0 0 20px #81c784;
+  }
+  50% {
+    text-shadow: 0 0 15px #66bb6a, 0 0 30px #4caf50;
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    border-image-source: linear-gradient(45deg, #a5d6a7, #66bb6a, #81c784, #4caf50);
+  }
+  50% {
+    border-image-source: linear-gradient(45deg, #81c784, #4caf50, #a5d6a7, #66bb6a);
+  }
+  100% {
+    border-image-source: linear-gradient(45deg, #a5d6a7, #66bb6a, #81c784, #4caf50);
+  }
+}
+  </style>
+</head>
+<body>
+<header>
+ <img src="https://www.utmachala.edu.ec/portalwp/wp-content/uploads/2015/08/LOGO_OUT.png" width="150" height="150" alt="Logo UT Machala">
+  <h1>Hagamos De Venecia Un Barrio Más Limpio</h1>
+</header>
+<section style="background: linear-gradient(135deg, #dcedc1, #a5d6a7); padding: 40px 30px; margin: 30px auto; border-radius: 25px; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3); border: 4px solid #81c784;">
+  <h2 style="color: #1b5e20; font-size: 2.8rem; text-align: center; margin-bottom: 25px; text-shadow: 1px 1px 3px #4caf50;">
+    📌 ¡Bienvenidos al Corazón Verde de Venecia! 🌿
+  </h2>
+  <p style="font-size: 1.3rem; color: #2e7d32; font-weight: 700; text-align: justify; line-height: 1.7; text-shadow: 0 1px 1px #a5d6a7;">
+    🌎 Nuestro barrio enfrenta retos ambientales como la acumulación de basura, la tala de árboles y la contaminación que afectan nuestra salud y la belleza natural que nos rodea.  
+    Pero <span style="color: #4caf50; font-weight: 900;">¡Juntos tenemos el poder de cambiarlo!</span>  
+    Esta página es tu espacio para descubrir, aprender y poner en práctica acciones simples que harán de Venecia un lugar más limpio, verde y lleno de vida.  
+    🌱 Desde tu hogar, la escuela y la comunidad, cada gesto cuenta para cuidar nuestro planeta.  
+    ¿Estás listo para ser un héroe ambiental?  
+    <strong style="color: #388e3c;">¡Empecemos esta aventura ecológica ahora!</strong> 🚀
+  </p>
+</section>
+
+
+  <script>
+    const frases = [
+      "🌿 “La Tierra no es una herencia de nuestros padres, sino un préstamo de nuestros hijos.”",
+      "🌍 “El cambio comienza contigo. ¡Sé el ejemplo!”",
+      "💧 “Cada gota cuenta. Cuidar el agua es cuidar la vida.”",
+      "🍃 “No necesitamos un puñado de personas perfectas, sino millones haciendo lo mejor que pueden.”",
+      "♻️ “Reciclar no es una obligación, es una responsabilidad.”",
+      "🌞 “El futuro será verde, o no será.”"
+    ];
+    let indice = 0;
+
+    setInterval(() => {
+      const elemento = document.getElementById("carruselFrases");
+      elemento.style.opacity = 0;
+      setTimeout(() => {
+        indice = (indice + 1) % frases.length;
+        elemento.textContent = frases[indice];
+        elemento.style.opacity = 1;
+      }, 1000);
+    }, 5000);
+  </script>
+</section>
+
+<section style="
+  background: linear-gradient(135deg, #d9f0d9, #a6d8a8);
+  padding: 50px 40px;
+  border-radius: 30px;
+  box-shadow: 0 12px 35px rgba(102, 153, 51, 0.3);
+  max-width: 650px;
+  margin: 50px auto;
+  color: #2f4f2f;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+">
+  <h2 style="
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color: #336633;
+    text-shadow: 0 2px 6px rgba(102, 153, 51, 0.5);
+    animation: gentlePulse 3s ease-in-out infinite;
+    letter-spacing: 1.5px;
+  ">
+    🎮 Actividad Interactiva: ¿Cuánto sabes?
+  </h2>
+  <div class="pregunta" style="font-size: 1.4rem; margin-bottom: 35px; color: #2f4f2f; text-shadow: 0 1px 3px rgba(102,153,51,0.4);">
+    <p style="margin-bottom: 28px;">
+      🕵️‍♂️ ¿Qué color se usa para los contenedores de reciclaje de papel?
+    </p>
+    <button onclick="verificarRespuesta('azul')" class="btn-quiz">Azul</button>
+    <button onclick="verificarRespuesta('rojo')" class="btn-quiz">Rojo</button>
+    <button onclick="verificarRespuesta('verde')" class="btn-quiz">Verde</button>
+  </div>
+  <p id="resultadoQuiz" style="
+    font-size: 1.6rem;
+    min-height: 50px;
+    font-weight: 900;
+    letter-spacing: 1.1px;
+    text-shadow: 0 0 8px rgba(47, 79, 47, 0.3);
+  "></p>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+  @keyframes gentlePulse {
+    0%, 100% {
+      text-shadow: 0 2px 6px rgba(102, 153, 51, 0.5);
+      color: #336633;
+    }
+    50% {
+      text-shadow: 0 4px 14px rgba(102, 153, 51, 0.8);
+      color: #2a552a;
+    }
+  }
+
+  .btn-quiz {
+    background: linear-gradient(145deg, #a8d5a2, #7db46c);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 42px;
+    margin: 0 15px 22px 15px;
+    color: #f0f8f0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    cursor: pointer;
+    box-shadow: 0 5px 18px rgba(125, 180, 108, 0.5);
+    transition: all 0.35s ease;
+    user-select: none;
+    letter-spacing: 1.1px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-quiz:hover {
+    background: linear-gradient(145deg, #7db46c, #5c8a45);
+    box-shadow: 0 8px 30px rgba(92, 138, 69, 0.8);
+    transform: scale(1.12);
+    color: #e6f1e6;
+  }
+
+  #resultadoQuiz.correcto {
+    color: #3c6e3c;
+    text-shadow: 0 0 18px #5c8a45;
+    animation: correctPulse 1.3s ease forwards;
+  }
+
+  #resultadoQuiz.incorrecto {
+    color: #a13c3c;
+    text-shadow: 0 0 18px #7a2a2a;
+    animation: incorrectPulse 1.3s ease forwards;
+  }
+
+  @keyframes correctPulse {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 10px #5c8a45;
+    }
+    50% {
+      transform: scale(1.15);
+      text-shadow: 0 0 25px #8bc34a;
+    }
+  }
+
+  @keyframes incorrectPulse {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 10px #7a2a2a;
+    }
+    50% {
+      transform: scale(0.9) rotate(-4deg);
+      text-shadow: 0 0 25px #a13c3c;
+    }
+  }
+</style>
+
+<script>
+  function verificarRespuesta(color) {
+    const resultado = document.getElementById('resultadoQuiz');
+    if (color === 'azul') {
+      resultado.textContent = '✅ ¡Correcto! El color azul es para reciclaje de papel.';
+      resultado.className = 'correcto';
+    } else {
+      resultado.textContent = '❌ Esa no es la respuesta correcta. Intenta otra vez.';
+      resultado.className = 'incorrecto';
+    }
+  }
+</script>
+
+<section style="background: linear-gradient(to right, #c8e6c9, #e0f7fa); padding: 50px 20px; border-radius: 25px; margin: 50px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.15); max-width: 1100px;">
+  <h2 style="text-align: center; font-size: 2.8rem; color: #1b5e20; text-shadow: 2px 2px 5px #a5d6a7;">🌟 ¿Sabías qué?</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+    
+    <div style="background: #ffffff; border-left: 10px solid #81c784; padding: 25px; border-radius: 15px; transition: transform 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <h3 style="color: #2e7d32;">🌳 Un solo árbol...</h3>
+      <p style="color: #555; font-size: 1.1rem;">...puede absorber hasta 22 kg de dióxido de carbono al año, ¡ayudando a limpiar el aire!</p>
+    </div>
+
+    <div style="background: #ffffff; border-left: 10px solid #4db6ac; padding: 25px; border-radius: 15px; transition: transform 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <h3 style="color: #00796b;">♻️ Reciclar 1 tonelada de papel...</h3>
+      <p style="color: #555; font-size: 1.1rem;">...salva 17 árboles, 32 mil litros de agua y evita 27 kg de contaminantes.</p>
+    </div>
+
+    <div style="background: #ffffff; border-left: 10px solid #64b5f6; padding: 25px; border-radius: 15px; transition: transform 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <h3 style="color: #1976d2;">💧 Una gotera en casa...</h3>
+      <p style="color: #555; font-size: 1.1rem;">...puede desperdiciar más de 11,000 litros de agua al año. ¡Revisemos nuestras tuberías!</p>
+    </div>
+
+    <div style="background: #ffffff; border-left: 10px solid #ffb74d; padding: 25px; border-radius: 15px; transition: transform 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <h3 style="color: #f57c00;">🐢 El plástico en el mar...</h3>
+      <p style="color: #555; font-size: 1.1rem;">...afecta a más de 700 especies marinas. ¡Evita usar plásticos de un solo uso!</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="background: linear-gradient(135deg, #c8e6c9, #f1f8e9); padding: 60px 30px; border-radius: 25px; margin: 60px auto; box-shadow: 0 10px 35px rgba(0, 100, 0, 0.2); max-width: 900px; text-align: center; font-family: 'Poppins', sans-serif;">
+  <h2 style="font-size: 3rem; color: #2e7d32; margin-bottom: 30px; text-shadow: 1px 1px 5px #a5d6a7; animation: gentlePulse 3s ease-in-out infinite;">
+    ❓ Mini Quiz Ambiental 🌎
+  </h2>
+  <div id="miniQuiz" style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
+    <div class="miniPregunta" style="background: #ffffff; padding: 25px 30px; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); max-width: 700px;">
+      <p style="font-size: 1.5rem; font-weight: bold; color: #388e3c;">🌱 ¿Cuál es la mejor forma de reducir la contaminación del aire?</p>
+      <button onclick="miniQuizResponder(0, 'a')" class="btn-quiz">A) Usar más autos</button>
+      <button onclick="miniQuizResponder(0, 'b')" class="btn-quiz">B) Plantar árboles</button>
+      <button onclick="miniQuizResponder(0, 'c')" class="btn-quiz">C) Quemar basura</button>
+    </div>
+    <div class="miniPregunta" style="display: none; background: #ffffff; padding: 25px 30px; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); max-width: 700px;">
+      <p style="font-size: 1.5rem; font-weight: bold; color: #388e3c;">♻️ ¿Qué objeto no se puede reciclar?</p>
+      <button onclick="miniQuizResponder(1, 'a')" class="btn-quiz">A) Botellas de plástico</button>
+      <button onclick="miniQuizResponder(1, 'b')" class="btn-quiz">B) Vidrio</button>
+      <button onclick="miniQuizResponder(1, 'c')" class="btn-quiz">C) Pilas</button>
+    </div>
+    <div class="miniPregunta" style="display: none; background: #ffffff; padding: 25px 30px; border-radius: 20px; box-shadow: 0 6px 18px rgba(0,0,0,0.15); max-width: 700px;">
+      <p style="font-size: 1.5rem; font-weight: bold; color: #388e3c;">💧 ¿Por qué es importante cuidar el agua?</p>
+      <button onclick="miniQuizResponder(2, 'a')" class="btn-quiz">A) Porque es ilimitada</button>
+      <button onclick="miniQuizResponder(2, 'b')" class="btn-quiz">B) Porque es un recurso vital</button>
+      <button onclick="miniQuizResponder(2, 'c')" class="btn-quiz">C) Porque no la usamos</button>
+    </div>
+  </div>
+  <p id="resultadoMiniQuiz" style="font-size: 1.6rem; font-weight: bold; margin-top: 30px; text-shadow: 0 0 10px #81c784;"></p>
+</section>
+
+
+<section>
+  <h2>♻️ Actividad: Arrastra y suelta el residuo en el contenedor correcto</h2>
+  <p>Arrastra cada residuo y suéltalo en el contenedor correcto según su tipo:</p>
+  <div class="contenedor-reciclaje" id="contenedores">
+    <div id="contenedorVidrio" ondragover="permitirSoltar(event)" ondrop="soltar(event)">Vidrio</div>
+    <div id="contenedorPapel" ondragover="permitirSoltar(event)" ondrop="soltar(event)">Papel</div>
+    <div id="contenedorOrganico" ondragover="permitirSoltar(event)" ondrop="soltar(event)">Orgánico</div>
+  </div>
+  <div>
+    <div draggable="true" ondragstart="arrastrar(event)" id="botella" class="item-arrastrable">Botella de vidrio</div>
+    <div draggable="true" ondragstart="arrastrar(event)" id="periodico" class="item-arrastrable">Periódico</div>
+    <div draggable="true" ondragstart="arrastrar(event)" id="banana" class="item-arrastrable">Cáscara de banana</div>
+  </div>
+  <p id="resultadoArrastrar"></p>
+</section>
+
+<section class="video-educativo">
+  <h2>🎮 Video educativo</h2>
+  <center><p>Mira este video divertido para aprender cómo cuidar nuestro planeta:</p></center>
+  <iframe src="https://www.powtoon.com/embed/cFTSVGSjXy4/" allowfullscreen></iframe>
+</section>
+
+
+<style>
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+}
+</style>
+
+
+<section style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 60px 20px; border-radius: 25px; max-width: 1200px; margin: 60px auto; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(0, 100, 0, 0.2);">
+  <h2 style="text-align: center; font-size: 2.8rem; color: #1b5e20; margin-bottom: 40px; text-shadow: 1px 1px 4px #a5d6a7;">
+    🌿 ¿Por qué es importante cuidar el medio ambiente?
+  </h2>
+
+  <div class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 0 20px;">
+    
+    <div class="box" style="background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+      <h3 style="font-size: 1.5rem; color: #388e3c; margin-bottom: 10px;">💚 1. Salud para todos</h3>
+      <p style="font-size: 1rem; text-align: justify; color: #2e7d32;">Significa menos contaminación donde obtendremos agua y aire totalmente limpios.</p>
+    </div>
+
+    <div class="box" style="background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+      <h3 style="font-size: 1.5rem; color: #388e3c; margin-bottom: 10px;">🦋 2. Cuidamos la vida</h3>
+      <p style="font-size: 1rem; text-align: justify; color: #2e7d32;">Proteger el entorno ayuda a conservar las plantas, animales y los ecosistemas.</p>
+    </div>
+
+    <div class="box" style="background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+      <h3 style="font-size: 1.5rem; color: #388e3c; margin-bottom: 10px;">💧 3. Recursos naturales</h3>
+      <p style="font-size: 1rem; text-align: justify; color: #2e7d32;">El agua, los árboles y la energía no duran para siempre, usémoslos con responsabilidad.</p>
+    </div>
+
+    <div class="box" style="background: #ffffff; padding: 30px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+      <h3 style="font-size: 1.5rem; color: #388e3c; margin-bottom: 10px;">🌱 4. Pensar en el futuro</h3>
+      <p style="font-size: 1rem; text-align: justify; color: #2e7d32;">Si cuidamos nuestro barrio hoy, dejamos un mejor lugar a las futuras generaciones.</p>
+    </div>
+    
+  </div>
+</section>
+
+
+<!-- Asegúrate de tener AOS en tu página -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+</script>
+
+<section style="background: linear-gradient(145deg, #f1f8e9, #dcedc8); padding: 70px 30px; border-radius: 30px; max-width: 900px; margin: 80px auto; box-shadow: 0 12px 35px rgba(0, 100, 0, 0.2); font-family: 'Poppins', sans-serif; text-align: center;" data-aos="zoom-in">
+  <h2 style="font-size: 2.7rem; color: #2e7d32; margin-bottom: 20px; text-shadow: 1px 1px 3px #a5d6a7;">
+    ✨ ¿Tienes una idea, sugerencia o algo que decirnos?
+  </h2>
+  <p style="font-size: 1.2rem; color: #4e944f; max-width: 700px; margin: 0 auto 35px;">
+    ¡Nos encantaría escucharte! Comparte tu opinión y ayúdanos a mejorar este espacio. Tu voz es parte del cambio 🌍💬
+  </p>
+  <a href="https://forms.gle/7wdGdApv5EjpSRFW6" target="_blank" style="display: inline-block; background: #66bb6a; color: white; font-size: 1.2rem; padding: 15px 35px; border-radius: 40px; text-decoration: none; box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3); transition: transform 0.3s ease, background 0.3s ease;">
+    📬 ¡Quiero dejar mi comentario!
+  </a>
+</section>
+
+
+<section style="position: relative; overflow: hidden; padding: 60px 20px; background: linear-gradient(135deg, #e0f7fa 0%, #a8e6cf 100%); border-radius: 25px; box-shadow: inset 0 0 30px #c8e6c9;">
+  
+  <!-- Fondo parallax animado -->
+  <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: #66bb6a99; border-radius: 50%; filter: blur(60px); animation: floatSlow 12s ease-in-out infinite;"></div>
+  <div style="position: absolute; bottom: -60px; left: -40px; width: 300px; height: 300px; background: #81c78488; border-radius: 50%; filter: blur(70px); animation: floatSlowReverse 15s ease-in-out infinite;"></div>
+
+  <h2 style="
+    text-align: center; 
+    font-size: 3rem; 
+    color: #1b5e20; 
+    text-shadow: 3px 3px 10px #a5d6a7; 
+    margin-bottom: 50px;
+    font-weight: 900;
+    animation: fadeIn 1.5s ease forwards;
+  ">
+    🌟 ¡Juntos Podemos Hacer la Diferencia!
+  </h2>
+
+  <p style="
+    max-width: 700px; 
+    margin: 0 auto 40px; 
+    font-size: 1.3rem; 
+    color: #2e7d32; 
+    font-weight: 700; 
+    text-align: center; 
+    background: linear-gradient(90deg, #dcedc1, #a8e6cf);
+    border-radius: 20px;
+    padding: 15px 25px;
+    box-shadow: inset 0 0 15px #8bc34a;
+    border: 3px solid #81c784;
+    animation: fadeInUp 2s ease forwards;
+  ">
+    Pequeñas acciones diarias crean un impacto enorme en nuestro planeta. ¡Participa y siente el orgullo de cuidar tu barrio y el mundo!
+  </p>
+
+  <div style="
+    max-width: 960px; 
+    margin: auto; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 35px;
+    animation: fadeInUp 2.2s ease forwards;
+  ">
+
+    <div style="
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1); 
+      padding: 30px; 
+      border-radius: 20px; 
+      width: 280px; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      text-align: center; 
+      cursor: default;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    ">
+      <div style="
+        font-size: 4.5rem; 
+        animation: bounce 2.5s infinite;
+        margin-bottom: 10px;
+      ">🌳</div>
+      <h3 style="color: #2e7d32; margin-bottom: 15px; font-weight: 800; font-size: 1.7rem;">Planta un árbol</h3>
+      <p style="color: #3b6e28; font-size: 1.15rem; line-height: 1.5;">Los árboles purifican el aire, brindan sombra y hogar a la fauna local. ¡Haz tu parte!</p>
+      <button onclick="alert('¡Gracias por querer plantar un árbol!')" style="
+        margin-top: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 12px 28px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 6px 12px #388e3c;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#357a38'; this.style.transform='scale(1.1)'" onmouseout="this.style.backgroundColor='#4caf50'; this.style.transform='scale(1)'">
+        ¡Quiero Participar!
+      </button>
+    </div>
+
+    <div style="
+      background: linear-gradient(135deg, #ff9a9e, #fecfef); 
+      padding: 30px; 
+      border-radius: 20px; 
+      width: 280px; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      text-align: center; 
+      cursor: default;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    ">
+      <div style="
+        font-size: 4.5rem; 
+        animation: bounce 2.5s infinite;
+        margin-bottom: 10px;
+      ">♻️</div>
+      <h3 style="color: #d32f2f; margin-bottom: 15px; font-weight: 800; font-size: 1.7rem;">Recicla correctamente</h3>
+      <p style="color: #9b1c1c; font-size: 1.15rem; line-height: 1.5;">Separar residuos reduce contaminación, ahorra recursos y protege el ecosistema.</p>
+      <button onclick="alert('¡Gracias por reciclar y cuidar el planeta!')" style="
+        margin-top: 18px;
+        background-color: #e53935;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 12px 28px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 6px 12px #b71c1c;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#ab2220'; this.style.transform='scale(1.1)'" onmouseout="this.style.backgroundColor='#e53935'; this.style.transform='scale(1)'">
+        ¡Quiero Participar!
+      </button>
+    </div>
+
+    <div style="
+      background: linear-gradient(135deg, #89f7fe, #66a6ff); 
+      padding: 30px; 
+      border-radius: 20px; 
+      width: 280px; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      text-align: center; 
+      cursor: default;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    ">
+      <div style="
+        font-size: 4.5rem; 
+        animation: bounce 2.5s infinite;
+        margin-bottom: 10px;
+      ">💧</div>
+      <h3 style="color: #0d47a1; margin-bottom: 15px; font-weight: 800; font-size: 1.7rem;">Ahorra agua</h3>
+      <p style="color: #08306b; font-size: 1.15rem; line-height: 1.5;">Cada gota cuenta. Usa el agua con responsabilidad para un futuro sostenible.</p>
+      <button onclick="alert('¡Gracias por cuidar el agua!')" style="
+        margin-top: 18px;
+        background-color: #1565c0;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 12px 28px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 6px 12px #0d47a1;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      " onmouseover="this.style.backgroundColor='#0c3a82'; this.style.transform='scale(1.1)'" onmouseout="this.style.backgroundColor='#1565c0'; this.style.transform='scale(1)'">
+        ¡Quiero Participar!
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  @keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+  @keyframes fadeInUp {
+    0% {opacity: 0; transform: translateY(30px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-15px) translateX(15px); }
+  }
+  @keyframes floatSlowReverse {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(15px) translateX(-15px); }
+  }
+  /* Hover efecto para las tarjetas */
+  section > div > div:hover {
+    transform: translateY(-18px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+</style>
+
+
+
+<!-- Asegúrate de tener AOS en tu <head> -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+</script>
+
+<section style="background: linear-gradient(145deg, #f1f8e9, #dcedc8); padding: 60px 20px; border-radius: 25px; max-width: 1200px; margin: 80px auto; font-family: 'Poppins', sans-serif; text-align: center; box-shadow: 0 10px 30px rgba(0, 100, 0, 0.15);">
+  <h2 style="font-size: 2.8rem; color: #33691e; margin-bottom: 50px; text-shadow: 1px 1px 3px #aed581;">
+    👩‍🏫 Docentes Participantes
+  </h2>
+
+  <div class="contenedor" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+    
+    <!-- Docente 1 -->
+    <div class="cuadro" data-aos="fade-up" style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; width: 220px;">
+      <img src="https://github.com/Carlosnick1996/ProyectoEducativo/blob/main/leyna.jpg?raw=true" alt="YAURE LEYNA" style="border-radius: 15px; width: 100%; border: 4px solid #81c784; transition: transform 0.3s ease;">
+      <p style="font-weight: 600; margin-top: 15px; font-size: 1.1rem; color: #388e3c;">YAURE LEYNA</p>
+      <p style="font-weight: 500; color: #666;">DOCENTE</p>
+    </div>
+
+    <!-- Docente 2 -->
+    <div class="cuadro" data-aos="fade-up" data-aos-delay="100" style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; width: 220px;">
+      <img src="https://github.com/Carlosnick1996/ProyectoEducativo/blob/main/carlos%20armijos.png?raw=true" alt="ARMIJOS CARLOS" style="border-radius: 15px; width: 100%; border: 4px solid #81c784; transition: transform 0.3s ease;">
+      <p style="font-weight: 600; margin-top: 15px; font-size: 1.1rem; color: #388e3c;">ARMIJOS CARLOS</p>
+      <p style="font-weight: 500; color: #666;">COORDINADOR - DOCENTE</p>
+    </div>
+
+    <!-- Docente 3 -->
+    <div class="cuadro" data-aos="fade-up" data-aos-delay="200" style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; width: 220px;">
+      <img src="https://github.com/Carlosnick1996/ProyectoEducativo/blob/main/Marisela.jpg?raw=true" alt="HURTADO JOHANNA" style="border-radius: 15px; width: 100%; border: 4px solid #81c784; transition: transform 0.3s ease;">
+      <p style="font-weight: 600; margin-top: 15px; font-size: 1.1rem; color: #388e3c;">HURTADO JOHANNA</p>
+      <p style="font-weight: 500; color: #666;">DOCENTE</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<footer>
+  <p>💚 Gracias por ser parte del cambio. ¡Juntos salvamos el planeta desde nuestro barrio! 🌍</p>
+  <p>@ 2025 Educación Ambiental</p>
+</footer>
+
+<div class="emoji-flotante">🍃</div>
+
+<script>
+  function verificarRespuesta(respuesta) {
+    const resultado = document.getElementById("resultadoQuiz");
+    if (respuesta === "azul") {
+      resultado.textContent = "🎉 ¡Correcto! El color azul es para papel.";
+      resultado.style.color = "#2e7d32";
+    } else {
+      resultado.textContent = "❌ Ups, inténtalo de nuevo.";
+      resultado.style.color = "#d32f2f";
+    }
+  }
+
+  const preguntasMiniQuiz = [
+    {respuestaCorrecta: 'b'},
+    {respuestaCorrecta: 'c'},
+    {respuestaCorrecta: 'b'}
+  ];
+  let preguntaActual = 0;
+  let puntajeMiniQuiz = 0;
+
+  function miniQuizResponder(preguntaIndex, respuesta) {
+    if(preguntaIndex !== preguntaActual) return;
+
+    const resultado = document.getElementById("resultadoMiniQuiz");
+
+    if (respuesta === preguntasMiniQuiz[preguntaIndex].respuestaCorrecta) {
+      puntajeMiniQuiz++;
+      resultado.textContent = "✔ ¡Correcto!";
+      resultado.style.color = "#2e7d32";
+    } else {
+      resultado.textContent = "❌ Incorrecto, intenta la siguiente.";
+      resultado.style.color = "#d32f2f";
+    }
+
+    const preguntas = document.querySelectorAll("#miniQuiz .miniPregunta");
+    preguntas[preguntaActual].style.display = "none";
+    preguntaActual++;
+
+    if(preguntaActual < preguntas.length) {
+      preguntas[preguntaActual].style.display = "block";
+    } else {
+      resultado.textContent = `🎉 Fin del mini quiz. Tu puntaje: ${puntajeMiniQuiz} de ${preguntas.length}.`;
+      resultado.style.color = "#2e7d32";
+      preguntaActual = 0;
+      puntajeMiniQuiz = 0;
+      preguntas.forEach(p => p.style.display = "block");
+    }
+  }
+
+  let respuestasArrastrar = {
+    botella: 'contenedorVidrio',
+    periodico: 'contenedorPapel',
+    banana: 'contenedorOrganico'
+  };
+
+  function permitirSoltar(ev) {
+    ev.preventDefault();
+  }
+
+  function arrastrar(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function soltar(ev) {
+    ev.preventDefault();
+    const idElemento = ev.dataTransfer.getData("text");
+    const contenedorDestino = ev.target.id;
+    const resultado = document.getElementById("resultadoArrastrar");
+
+    if (respuestasArrastrar[idElemento] === contenedorDestino) {
+      ev.target.appendChild(document.getElementById(idElemento));
+      resultado.textContent = "✅ ¡Correcto! Has reciclado bien.";
+      resultado.style.color = "#2e7d32";
+    } else {
+      resultado.textContent = "❌ No es el contenedor correcto, inténtalo de nuevo.";
+      resultado.style.color = "#d32f2f";
+    }
+  }
+</script>
+</body>
+</html>
